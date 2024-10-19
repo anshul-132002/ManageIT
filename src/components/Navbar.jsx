@@ -14,7 +14,7 @@ const Navbar = () => {
     <nav className="bg-gray-600 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
       <Link to="/">
-        <div className="text-lg font-bold">RTK</div>
+        <div className="text-lg font-bold">Redux Toolkit</div>
         </Link>
         <div className="hidden md:flex space-x-4">
           <Link to="/">
