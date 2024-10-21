@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { updateData } from "../Features/Userslice";
+import { Bounce, ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
+import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toast notifications
 
 function UpdateUser() {
   const { id } = useParams();
@@ -17,7 +19,7 @@ function UpdateUser() {
         setUpdateUser(singleUser);
       }
     }
-  }, []);
+  }, [id, loading, user]);
 
   const newData = (e) => {
     setUpdateUser({ ...updateUser, [e.target.name]: e.target.value });
@@ -25,9 +27,13 @@ function UpdateUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("Updated User Data:", updateUser);
     dispatch(updateData(updateUser));
-    navigate("/read");
+
+    toast.success("User updated successfully!");
+
+    setTimeout(() => {
+      navigate("/read");
+    }, 1500);
   };
 
   if (!updateUser) {
@@ -44,9 +50,7 @@ function UpdateUser() {
           Update the User
         </h1>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
+          <label className="block text-gray-700 text-sm font-bold mb-2">
             Name
           </label>
           <input
@@ -61,9 +65,7 @@ function UpdateUser() {
         </div>
 
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
+          <label className="block text-gray-700 text-sm font-bold mb-2">
             Email
           </label>
           <input
@@ -78,9 +80,7 @@ function UpdateUser() {
         </div>
 
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
+          <label className="block text-gray-700 text-sm font-bold mb-2">
             Age
           </label>
           <input
@@ -102,7 +102,7 @@ function UpdateUser() {
               type="radio"
               name="gender"
               value="Male"
-              checked={updateUser.gender === "Male"} // Check if gender is Male
+              checked={updateUser.gender === "Male"}
               className="mr-2"
               onChange={newData}
             />
@@ -113,7 +113,7 @@ function UpdateUser() {
               name="gender"
               value="Female"
               className="mr-2"
-              checked={updateUser.gender === "Female"} // Check if gender is Female
+              checked={updateUser.gender === "Female"}
               onChange={newData}
             />
             <label>Female</label>
@@ -129,6 +129,20 @@ function UpdateUser() {
           </button>
         </div>
       </form>
+
+      <ToastContainer
+position="top-center"
+autoClose={2000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+transition: Bounce
+/>
     </div>
   );
 }

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, ShowUser, userData } from "../Features/Userslice";
-import Loading from "./Loading";
 import Popup from "./Popup";
 import { Link } from "react-router-dom";
+import Shimmer from "./Shimmer";
+import Loading from "./Loading";
 
 function Read() {
   const [id, setId] = useState();
